@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Islamic Quiz</title>
+<style>
+    /* CSS for styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: aqua;
+        color: blue;
+            }
+    .quiz-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .question {
+        margin-bottom: 10px;
+    }
+    .options label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    h2{
+    text-align: center;
+    color: green;
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h2>Islamic Quiz</h2>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <button onclick="nextQuestion()">Next Question</button>
+</div>
+
+<script>
+// JavaScript for quiz functionality
+const questions = [
+    {
+        question: "Kaunsa sahabi pehla Muslim tha?",
+        options: ["Hazrat Abu Bakr", "Hazrat Umar", "Hazrat Ali ", "Hazrat Usman"],
+        answer: "Hazrat Abu Bakr"
+    },
+    {
+        question: " Quran pak ki sab sa bari surah konsi ha?",
+        options: ["Surah Al-Baqarah", "Surah Al-Fatiha", "Surah Al-Kahf", "Surah Al-Mulk"],
+        answer: "Surah Al-Baqarah"
+    },
+    {
+        question: "Kis sahabi ka real name Abdul Rahman ibn Awf tha?",
+        options: ["Hazrat Abu Bakr ", "Hazrat Umar ", "Hazrat Ali ", "Hazrat Usman "],
+        answer: "Hazrat Usman "
+    },
+    {
+        question: "Ramzan ke mahine me konsi ibadat zyada afzal hai?",
+        options: ["Namaz", "Roza", "Tilawat-e-Quran", "Zakat"],
+        answer: "Roza"
+    },
+    {
+        question: "قرآن پاک میں کتنے حروف ہر حالت میں موٹے پڑھے جاتے ہیں",
+        options: ["7", "10", "13", "15"],
+        answer: "7"
+    }
+    // Add more questions here
+];
+
+let currentQuestion = 0;
+const questionElement = document.getElementById("question");
+const optionsElement = document.getElementById("options");
+
+function loadQuestion() {
+    const currentQuizData = questions[currentQuestion];
+    questionElement.textContent = currentQuizData.question;
+    optionsElement.innerHTML = "";
+
+    currentQuizData.options.forEach((option) => {
+        const optionElement = document.createElement("label");
+        optionElement.textContent = option;
+        const radioBtn = document.createElement("input");
+        radioBtn.type = "radio";
+        radioBtn.name = "option";
+        radioBtn.value = option;
+        optionElement.appendChild(radioBtn);
+        optionsElement.appendChild(optionElement);
+    });
+}
+
+function nextQuestion() {
+    const selectedOption = document.querySelector('input[name="option"]:checked');
+    if (!selectedOption) {
+        alert("Please select an option!");
+        return;
+    }
+    if (selectedOption.value === questions[currentQuestion].answer) {
+        alert("Correct answer!");
+    } else {
+        alert("Wrong answer. Correct answer is: " + questions[currentQuestion].answer);
+    }
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        loadQuestion();
+    } else {
+        alert("Quiz finished!");
+    }
+}
+
+loadQuestion();
+</script>
+</body>
+</html>
